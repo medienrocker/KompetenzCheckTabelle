@@ -1,0 +1,21 @@
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.querySelectorAll('.kcm_divided-td').forEach(cell => {
+            const parts = cell.querySelectorAll('div');
+            let allEmpty = true;
+
+            parts.forEach((part, index) => {
+                if (part.textContent.trim() !== '') {
+                    part.textContent = `${index + 1}x`;
+                    allEmpty = false;
+                }
+            });
+
+            if (allEmpty) {
+                cell.innerHTML = '<div style="flex: 1; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; background-color: var(--kcm-bg-dark-yellow);">0x</div>';
+            }
+        });
+    </script>
