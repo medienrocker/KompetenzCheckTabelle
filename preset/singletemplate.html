@@ -1,20 +1,20 @@
-    <div class="kcm_table-container">
-<div class="kcm_user">##userpicture## ##user##</div>
-<hr>
-<p>Bearbeiten: ##edit## Löschen: ##delete##</p>
-<hr>
-        <table class="kcm_table">
-<hr>
-            <thead>
-                <tr>
-                    <th>Kompetenzen</th>
-                    <th>1. Check: <span class="kcm_date">[[Datum1]]</span></th>
-                    <th>2. Check: <span class="kcm_date">[[Datum2]]</span></th>
-                    <th>3. Check: <span class="kcm_date">[[Datum3]]</span></th>
-                    <th>Anmerkungen</th>
-                </tr>
-            </thead>
-            <tbody>
+<div class="kcm_table-container">
+    <div class="kcm_user">##userpicture## ##user##</div>
+    <hr>
+    <p>Bearbeiten: ##edit## Löschen: ##delete##</p>
+    <hr>
+    <table class="kcm_table">
+        <hr>
+        <thead>
+            <tr>
+                <th>Kompetenzen</th>
+                <th>1. Check: <span class="kcm_date">[[Datum1]]</span></th>
+                <th>2. Check: <span class="kcm_date">[[Datum2]]</span></th>
+                <th>3. Check: <span class="kcm_date">[[Datum3]]</span></th>
+                <th>Anmerkungen</th>
+            </tr>
+        </thead>
+        <tbody>
             <tr>
                 <td>Kompetenzfrage 01</td>
                 <td><span class="kcm_emoji">[[Check01]]</span></td>
@@ -156,13 +156,13 @@
                 <td>[[Anmerkung20]]</td>
             </tr>
         </tbody>
-        </table>
-    </div>
+    </table>
+</div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('.kcm_emoji').forEach(span => {
-        span.textContent = span.textContent.replace(/^\d/, '');
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('.kcm_emoji').forEach(span => {
+            span.textContent = span.textContent.replace(/^\d/, '');
+        });
     });
-});
 </script>
