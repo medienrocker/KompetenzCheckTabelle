@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="preset/csstemplate.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <span id="kcm_all-comps" class="kcm_hidden">
+        <div title=""><label for="field_366"><span class="accesshide">Alle Kompetenzen</span></label><select
+                id="field_366" class="select custom-select mod-data-input custom-select" name="field_366">
+                <option selected="selected" value="">Auswählen ...</option>
+                <option value="Meine Komp 01">Meine Komp 01</option>
+                <option value="Meine Komp 02">Meine Komp 02</option>
+                <option value="Meine Komp 03">Meine Komp 03</option>
+                <option value="Meine Komp 04">Meine Komp 04</option>
+            </select></div>
+    </span>
+
+    <div id="kcm_table-container">
+        <table class="kcm_table">
+            <thead>
+                <tr>
+                    <th>Kompetenzen</th>
+                    <th>Letzter Check: [[Datum1]]</th>
+                    <th>Anmerkungen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="kcm_komp">Kompetenz01</td>
+                    <td>[[Check01]]</td>
+                    <td>[[Anmerkung01]]</td>
+                </tr>
+                <tr>
+                    <td class="kcm_komp">Kompetenz02</td>
+                    <td>[[Check02]]</td>
+                    <td>[[Anmerkung02]]</td>
+                </tr>
+                <tr>
+                    <td class="kcm_komp">Kompetenz03</td>
+                    <td>[[Check03]]</td>
+                    <td>[[Anmerkung03]]</td>
+                </tr>
+                <tr>
+                    <td class="kcm_komp">Kompetenz04</td>
+                    <td>[[Check04]]</td>
+                    <td>[[Anmerkung04]]</td>
+                </tr>
+                <tr>
+                    <td class="kcm_komp">Kompetenz05</td>
+                    <td>[[Check05]]</td>
+                    <td>[[Anmerkung05]]</td>
+                </tr>
+                <tr>
+                    <td class="kcm_komp">Kompetenz06</td>
+                    <td>[[Check06]]</td>
+                    <td>[[Anmerkung06]]</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+
+        // creates an array[] with the entrys from the hidden options dropdown.
+        let kcm_kompetences = []; // "global" variable ist needed for both functions!!!
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let listView = document.getElementById('kcm_table-container-list-view');
+            const dropdown = document.querySelector('#kcm_all-comps select');
+
+            if (dropdown) {
+                for (let i = 1; i < dropdown.options.length; i++) {
+                    kcm_kompetences.push(dropdown.options[i].text);
+                }
+            }
+            console.log(kcm_kompetences);
+
+            if (!listView) {
+                console.log('Not on List View');
+
+                // replaces the dummy competences with the one from the array
+                const kompTds = document.querySelectorAll('td.kcm_komp');
+                const tbody = document.querySelector('.kcm_table tbody');
+
+                let lastReplacedIndex = -1;
+
+                kompTds.forEach((td, index) => {
+                    if (index < kcm_kompetences.length) {
+                        td.textContent = kcm_kompetences[index];
+                        lastReplacedIndex = index;
+                    }
+                });
+
+
+                // Remove excess rows
+                const rows = tbody.querySelectorAll('tr');
+                for (let i = rows.length - 1; i > lastReplacedIndex; i--) {
+                    tbody.removeChild(rows[i]);
+                }
+            } else {
+                console.log('List View');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

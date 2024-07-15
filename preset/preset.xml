@@ -7,8 +7,8 @@
 <intro/>
 <comments>0</comments>
 <requiredentries>0</requiredentries>
-<requiredentriestoview>0</requiredentriestoview>
-<maxentries>0</maxentries>
+<requiredentriestoview>2</requiredentriestoview>
+<maxentries>1</maxentries>
 <rssarticles>0</rssarticles>
 <approval>0</approval>
 <manageapproved>1</manageapproved>
@@ -16,12 +16,13 @@
 <defaultsort>0</defaultsort>
 </settings>
 
-
 <field>
 <type>date</type>
 <name>Datum1</name>
 <required>0</required>
 </field>
+
+
 
 <field>
 <type>menu</type>
@@ -247,6 +248,7 @@
 2&#x1F642;
 3&#x1F600;</param1>
 </field>
+
 
 
 

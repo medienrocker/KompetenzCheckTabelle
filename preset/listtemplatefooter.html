@@ -2,6 +2,46 @@
         </table>
     </div>
 
-    <script>
+ <script>
+    // creates the Bar Chart
+   document.addEventListener("DOMContentLoaded", function () {
+    const competenceCount = kcm_competences.length; // Assuming kcm_competences is defined as before
 
-    </script>
+    document.querySelectorAll('.kcm_overview').forEach(overview => {
+        const checkDiv = overview.querySelector('.kcm_checks');
+        const barContainer = overview.querySelector('.bar-container');
+        const content = checkDiv.textContent.trim();
+        const checks = content.split('|').slice(0, competenceCount); // Only take the number of checks we need
+
+        // Clear existing bars
+        barContainer.innerHTML = '';
+
+        // Calculate bar width
+        const barWidth = `calc(${100 / competenceCount}% - ${(competenceCount - 1) * 4 / competenceCount}px)`;
+
+        checks.forEach((check, index) => {
+            const barDiv = document.createElement('div');
+            barDiv.style.width = barWidth;
+
+            const checkContent = check.replace(/\[\[Check\d+\]\]/, '').trim(); // Remove [[CheckXX]] and trim
+
+            if (checkContent) {
+                const number = checkContent[0]; // Get the first character (1, 2, or 3)
+                barDiv.classList.add('bar', `bar${number}`);
+            } else {
+                barDiv.classList.add('bar', 'kcm_bar-empty');
+            }
+
+            barContainer.appendChild(barDiv);
+        });
+
+        // If there are fewer checks than competences, add empty bars
+        for (let i = checks.length; i < competenceCount; i++) {
+            const barDiv = document.createElement('div');
+            barDiv.classList.add('bar', 'kcm_bar-empty');
+            barDiv.style.width = barWidth;
+            barContainer.appendChild(barDiv);
+        }
+    });
+});
+</script>
