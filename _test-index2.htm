@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Bar Chart</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td.kcm_overview {
+            border: 1px solid #333;
+            width: 400px;
+            height: 100px;
+            padding: 4px 4px 0 4px;
+        }
+
+        td.kcm_view {
+            width: 150px;
+        }
+
+        .kcm_overview .bar-container {
+            display: flex;
+            align-items: flex-end;
+            height: 100%;
+            width: 100%;
+            gap: 4px;
+        }
+
+        .kcm_overview .bar {
+            /* Initial width will be calculated dynamically */
+            border: 1px solid #333;
+            border-bottom: none;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .kcm_overview .bar1 {
+            background-color: #ffcc00;
+            height: 33.33%;
+        }
+
+        .kcm_overview .bar2 {
+            background-color: #86ff7f;
+            height: 66.66%;
+        }
+
+        .kcm_overview .bar3 {
+            background-color: #089900;
+            height: 100%;
+        }
+
+        .kcm_hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>Cell 1</td>
+            <td class="kcm_overview">
+                <div class="kcm_checks kcm_hidden">1😐 2🙂 3😀 1😐 2🙂 3😀 1😐 1😐 1😐</div>
+                <div class="bar-container"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>Cell 3</td>
+            <td class="kcm_overview">
+                <div class="kcm_checks kcm_hidden">2🙂 1😐 3😀 3😀 1😐 2🙂 1😐 2🙂 3😀</div>
+                <div class="bar-container"></div>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('.kcm_overview').forEach(overview => {
+                const checkDiv = overview.querySelector('.kcm_checks');
+                const barContainer = overview.querySelector('.bar-container');
+
+                const content = checkDiv.textContent.trim();
+                const regex = /(\d)(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/gu;
+                const matches = [...content.matchAll(regex)];
+                const totalPairs = matches.length;
+                const barWidth = `calc(${100 / totalPairs}% - ${(totalPairs - 1) * 4 / totalPairs}px)`;
+
+                matches.forEach(match => {
+                    const number = match[1];
+                    const barDiv = document.createElement('div');
+                    barDiv.classList.add('bar', `bar${number}`);
+                    barDiv.style.width = barWidth;
+                    barContainer.appendChild(barDiv);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
