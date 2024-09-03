@@ -12,31 +12,31 @@ ENDE (ACHTUNG! Keine leeren Zeilen lassen!)`
 document.addEventListener('DOMContentLoaded', function () {
     // Process the kcm_competences array
     kcm_competences = kcm_competences[0].split('\n').map(item => item.trim());
-    
+
     // Remove the first and last entries
     kcm_competences = kcm_competences.slice(1, -1);
-    
+
     // Count the number of competences
     const competenceCount = kcm_competences.length;
     console.log('Number of competences:', competenceCount);
 
     let listView = document.getElementById('kcm_table-container-list-view');
-    
+
     if (!listView) {
         console.log('Not on List View');
-        
+
         // Replace dummy competences with the ones from the array
         const kompTds = document.querySelectorAll('td.kcm_komp');
         const tbody = document.querySelector('.kcm_table tbody');
         let lastReplacedIndex = -1;
-        
+
         kompTds.forEach((td, index) => {
             if (index < kcm_competences.length) {
                 td.textContent = kcm_competences[index];
                 lastReplacedIndex = index;
             }
         });
-        
+
         // Remove excess rows
         const rows = tbody.querySelectorAll('tr');
         for (let i = rows.length - 1; i > lastReplacedIndex; i--) {
@@ -83,5 +83,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
- 

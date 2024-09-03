@@ -9,8 +9,11 @@
     --kcm-bar-border-color: #333;
     --kcm-font-color: #ffffff;
     --kcm-border-color: #dddddd;
-    --kcm-row-hover-color: #616161;
-    --kcm-row-hover-font-color: #ffffff;
+    --kcm-row-hover-color: #fcebb7;
+    --kcm-row-hover-font-color: #333;
+    --kcm-bg-tr-even: #f3f3f3;
+    --kcm-box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 7px;
+    --kcm-border-radius: 4px;
 }
 
 #kcm_table-container,
@@ -20,37 +23,66 @@
 
 .kcm_table {
     width: 97%;
-    border-collapse: collapse;
     margin: 25px auto;
+    border-collapse: separate !important;
+    border-spacing: 0 16px;
     font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--kcm-row-hover-font-color);
     text-align: left;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 7px;
+    box-shadow: none;
+    border: none;
 }
 
 .kcm_table thead tr {
     background-color: var(--kcm-bg-color);
     color: var(--kcm-font-color);
     text-align: left;
-}
-
-.kcm_table th,
-.kcm_table td {
-    padding: 8px 12px;
-    border: 1px solid var(--kcm-border-color);
+    box-shadow: var(--kcm-box-shadow);
 }
 
 .kcm_table tbody tr {
     background-color: var(--kcm-font-color);
+    box-shadow: var(--kcm-box-shadow);
+    transition: all .3s ease;
 }
 
 .kcm_table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+    background-color: var(--kcm-bg-tr-even);
 }
 
 .kcm_table tbody tr:hover {
     background-color: var(--kcm-row-hover-color);
     color: var(--kcm-row-hover-font-color);
 }
+
+.kcm_table th {
+    padding: 8px 12px;
+}
+
+.kcm_table td {
+    padding: 8px 12px;
+}
+
+/* Add border to cells, but only inside each row */
+/* .kcm_table tbody td:not(:last-child), */
+.kcm_table thead th:not(:last-child) {
+    border-right: 1px solid var(--kcm-border-color);
+}
+
+/* Round corners for the first and last cells in each row */
+.kcm_table thead th:first-child,
+.kcm_table tbody td:first-child {
+    border-radius: var(--kcm-border-radius) 0 0 var(--kcm-border-radius);
+    overflow: hidden;
+}
+
+.kcm_table thead th:last-child,
+.kcm_table tbody td:last-child {
+    border-radius: 0 var(--kcm-border-radius) var(--kcm-border-radius) 0;
+    overflow: hidden;
+}
+
 
 th.kcm_last-checked {
     width: 150px;
@@ -64,7 +96,11 @@ td.kcm_view i {
     font-size: 24px;
 }
 
-td.kcm_overview {   
+td.kcm_last-edit {
+    text-align: center;
+}
+
+td.kcm_overview {
     width: 400px;
     height: 130px;
     padding: 4px 4px 0 4px;
@@ -83,6 +119,11 @@ td.kcm_overview {
     border: 1px solid var(--kcm-bar-border-color);
     border-bottom: none;
     border-radius: 3px 3px 0 0;
+    transition: all .2s ease;
+}
+
+.kcm_overview .bar:hover {
+    height: 20%;
 }
 
 .kcm_overview .bar1 {
@@ -105,41 +146,143 @@ td.kcm_overview {
     height: 33.33%;
 }
 
-.kcm_bg1 {
+.kcm_table .kcm_emoji {
+    font-size: 34px;
+    text-align: center;
+    padding: 6px;
+}
+
+.kcm_table .kcm_emoji div {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--kcm-bar-border-color);
+    border-radius: 3px;
+    display: inline-block;
+    padding: 2px 4px;
+}
+
+.kcm_table .kcm_emoji div.kcm_bg1 {
     background-color: var(--kcm-bg-dark-yellow);
 }
 
-.kcm_bg2 {
+.kcm_table .kcm_emoji div.kcm_bg2 {
     background-color: var(--kcm-bg-light-green);
 }
 
-.kcm_bg3 {
+.kcm_table .kcm_emoji div.kcm_bg3 {
     background-color: var(--kcm-bg-dark-green);
 }
 
 .kcm_hidden {
     display: none;
 }
-/* 
-.kcm_last-edit {
-
-}
-
-.kcm_date {
-            border: 1px solid var(--kcm-font-color);
-            padding: 2px 4px;
-        } */
 
 .kcm_user img {
     height: 50px;
     width: 50px;
 }
 
-.kcm_table .kcm_emoji {
-    font-size: 34px;
-    text-align: center;
-}
-
 #page-mod-data-edit .basefieldinput {
     width: 150px;
+}
+
+/* ----- Sticker Button ----- */
+
+.sticker-button-edit {
+    display: inline-block;
+    /* padding: 7px 35px 7px 8px;
+    font-size: 16px; */
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    background-color: #83ec0a;
+    border: 3px solid white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    text-align: left;
+    width: 60px;
+    height: 30px;
+    position: relative;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.sticker-button-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.sticker-button-edit:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.sticker-button-edit svg {
+    position: absolute;
+    right: 10px;
+    top: -19%;
+    left: 5px;
+    width: 50px;
+    height: 45px;
+    fill: currentColor;
+    transition: all 0.2s ease;
+}
+
+.sticker-button-edit:hover svg {
+    top: -35%;
+}
+
+.sticker-button-edit:active svg {
+    top: -25%;
+}
+
+.sticker-button-delete {
+    display: inline-block;
+    /* padding: 7px 35px 7px 8px; 
+    font-size: 16px;*/
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    background-color: #ec240a;
+    border: 3px solid white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    text-align: left;
+    width: 60px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.sticker-button-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.sticker-button-delete:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.sticker-button-delete svg {
+    position: absolute;
+    right: 10px;
+    top: -19%;
+    left: 19%;
+    width: 40px;
+    height: 35px;
+    fill: currentColor;
+    transition: all 0.2s ease;
+}
+
+.sticker-button-delete:hover svg {
+    top: -35%;
+}
+
+.sticker-button-delete:active svg {
+    top: -25%;
 }
