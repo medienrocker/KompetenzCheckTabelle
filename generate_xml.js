@@ -14,7 +14,7 @@ function generateXML(repetitions) {
 // Example usage: generate XML 20 times
 //generateXML(25);
 
-function generateXMLCHecks(repetitions) {
+function generateXMLChecks(repetitions) {
     const template = `<field>
 <type>menu</type>
 <name>Check{{num}}</name>
@@ -31,4 +31,4 @@ function generateXMLCHecks(repetitions) {
 }
 
 // Example usage: generate XML 20 times
-generateXML(75);
+generateXMLChecks(75);
