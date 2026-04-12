@@ -1,31 +1,43 @@
+/* CC-BY-SA bildungssprit.de | Falk Szyba @medienrocker */
+
+/* ----- Kompetenz-Liste -----
+ * Hier werden die Kompetenzen definiert, die in der Tabelle angezeigt werden.
+ * Jede Zeile zwischen START und ENDE ist eine Kompetenz.
+ * Maximal 50 Kompetenzen möglich.
+ * KEINE leeren Zeilen zwischen den Einträgen lassen!
+ */
 let kcm_competences = [
 `START Hier drunter deine Kompetenzen eintragen (eine pro Zeile):
-Erste Kompetenzfrage
-Zweite Kompetenzfrage
-Dritte Kompetenzfrage
-Vierte Kompetenzfrage
-Fünfte Kompetenzfrage
-Sechste K.
+Kommunikationsfähigkeit
+Teamfähigkeit
+Selbstorganisation
+Zeitmanagement
+Problemlösekompetenz
+Kritisches Denken
+Kreativität
+Anpassungsfähigkeit
+Lernbereitschaft
+Selbstreflexion
+Verantwortungsbewusstsein
+Zuverlässigkeit
+Interkulturelle Kompetenz
+Empathie
+Konfliktfähigkeit
 ENDE (ACHTUNG! Keine leeren Zeilen lassen!)`
 ];
 
+/* ----- Kompetenzen in Tabelle einsetzen ----- */
 document.addEventListener('DOMContentLoaded', function () {
-    // Process the kcm_competences array
+    // Mehrzeiligen String in Array aufsplitten, START/ENDE-Zeilen entfernen
     kcm_competences = kcm_competences[0].split('\n').map(item => item.trim());
-
-    // Remove the first and last entries
     kcm_competences = kcm_competences.slice(1, -1);
 
-    // Count the number of competences
     const competenceCount = kcm_competences.length;
-    console.log('Number of competences:', competenceCount);
 
     let listView = document.getElementById('kcm_table-container-list-view');
 
     if (!listView) {
-        console.log('Not on List View');
-
-        // Replace dummy competences with the ones from the array
+        // Einzelansicht / Hinzufügen-Ansicht: Platzhalter ersetzen
         const kompTds = document.querySelectorAll('td.kcm_komp');
         const tbody = document.querySelector('.kcm_table tbody');
         let lastReplacedIndex = -1;
@@ -37,20 +49,37 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Remove excess rows
+        // Überzählige Zeilen entfernen (wenn weniger Kompetenzen als Zeilen)
         const rows = tbody.querySelectorAll('tr');
         for (let i = rows.length - 1; i > lastReplacedIndex; i--) {
             tbody.removeChild(rows[i]);
         }
-    } else {
-        console.log('List View');
+
+        // Einzelansicht: Nur bewertete Zeilen anzeigen (nicht im Bearbeiten-Modus)
+        const isEditMode = document.getElementById('page-mod-data-edit') ||
+                           document.querySelector('#page-mod-data-edit') ||
+                           document.querySelector('.basefieldinput');
+        if (!isEditMode) {
+            const remainingRows = tbody.querySelectorAll('tr');
+            remainingRows.forEach(row => {
+                const emojiCell = row.querySelector('td.kcm_emoji');
+                if (emojiCell) {
+                    const content = emojiCell.textContent.trim();
+                    // Zeile ausblenden wenn kein Check-Wert vorhanden
+                    if (!content || !(/^[123]/.test(content))) {
+                        row.style.display = 'none';
+                    }
+                }
+            });
+        }
     }
 });
 
 
-// Formatänderung des moodle-Datums.
-// Ausgeschriebene Monate werden zu zweistelligen Zahlen
-
+/* ----- Datumsformat anpassen -----
+ * Moodle gibt Monate als deutsche Worte aus (z.B. "5. Januar 2025").
+ * Hier werden sie in numerisches Format umgewandelt (5.01.2025).
+ */
 document.addEventListener("DOMContentLoaded", function () {
     const monthMapping = {
         "Januar": "01",
@@ -72,13 +101,12 @@ document.addEventListener("DOMContentLoaded", function () {
         let dateParts = dateText.split(' ');
 
         if (dateParts.length === 3) {
-            let day = dateParts[0].replace('.', ''); // Remove any trailing full stop from the day
+            let day = dateParts[0].replace('.', '');
             let month = monthMapping[dateParts[1]];
             let year = dateParts[2];
 
             if (month) {
-                let formattedDate = `${day}.${month}.${year}`;
-                dateSpan.textContent = formattedDate;
+                dateSpan.textContent = day + '.' + month + '.' + year;
             }
         }
     });

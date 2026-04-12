@@ -1,5 +1,6 @@
-/* CC0 Erstellt von Falk Szyba @medienrocker) */
+/* CC-BY-SA bildungssprit.de | Falk Szyba @medienrocker */
 
+/* ----- Design-Variablen ----- */
 :root {
     --kcm-bg-color: #2e3b4e;
     --kcm-bg-light-green: #86ff7f;
@@ -16,6 +17,7 @@
     --kcm-border-radius: 4px;
 }
 
+/* ----- Tabellen-Layout ----- */
 #kcm_table-container,
 #kcm_table-container-list-view {
     overflow-x: auto;
@@ -84,6 +86,7 @@
 }
 
 
+/* ----- Spalten-Breiten und Ausrichtung ----- */
 th.kcm_last-checked {
     width: 150px;
 }
@@ -106,19 +109,18 @@ td.kcm_overview {
     padding: 4px 4px 0 4px;
 }
 
+/* ----- Balkendiagramm (Listenansicht) ----- */
 .kcm_overview .bar-container {
     display: flex;
     align-items: flex-end;
     height: 100%;
     width: 100%;
-    gap: 4px;
+    gap: 1px;
 }
 
 .kcm_overview .bar {
-    /* Initial width will be calculated dynamically */
-    border: 1px solid var(--kcm-bar-border-color);
-    border-bottom: none;
-    border-radius: 3px 3px 0 0;
+    border: none;
+    border-radius: 2px 2px 0 0;
     transition: all .2s ease;
 }
 
@@ -146,6 +148,7 @@ td.kcm_overview {
     height: 33.33%;
 }
 
+/* ----- Emoji-Zellen (Einzelansicht) ----- */
 .kcm_table .kcm_emoji {
     font-size: 34px;
     text-align: center;
@@ -173,6 +176,7 @@ td.kcm_overview {
     background-color: var(--kcm-bg-dark-green);
 }
 
+/* ----- Hilfklassen ----- */
 .kcm_hidden {
     display: none;
 }
@@ -182,6 +186,7 @@ td.kcm_overview {
     width: 50px;
 }
 
+/* Eingabefelder im Moodle-Bearbeitungsmodus schmaler */
 #page-mod-data-edit .basefieldinput {
     width: 150px;
 }

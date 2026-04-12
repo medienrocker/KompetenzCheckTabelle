@@ -1,55 +1,64 @@
-</tbody>
-</table>
-</div>
+            </tbody>
+        </table>
+    </div>
 
-<script>
+ <script>
     // creates the Bar Chart
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('.kcm_overview').forEach(overview => {
-            const checkDiv = overview.querySelector('.kcm_checks');
-            const barContainer = overview.querySelector('.bar-container');
-            const content = checkDiv.textContent.trim();
-            const checks = content.split('|').slice(0, competenceCount * 3); // Take all checks
+   document.addEventListener("DOMContentLoaded", function () {
+    const competenceCount = kcm_competences.length; // Assuming kcm_competences is defined as before
 
-            // Clear existing bars
-            barContainer.innerHTML = '';
+    document.querySelectorAll('.kcm_overview').forEach(overview => {
+        const checkDiv = overview.querySelector('.kcm_checks');
+        const barContainer = overview.querySelector('.bar-container');
+        const content = checkDiv.textContent.trim();
+        const checks = content.split('|').slice(0, competenceCount); // Only take the number of checks we need
 
-            // Calculate bar width
-            const barWidth = `calc(${100 / competenceCount}% - ${(competenceCount - 1) * 4 / competenceCount}px)`;
+        // Clear existing bars
+        barContainer.innerHTML = '';
 
-            for (let i = 0; i < competenceCount; i++) {
-                const barDiv = document.createElement('div');
-                barDiv.style.width = barWidth;
+        // Calculate bar width
+        const barWidth = `calc(${100 / competenceCount}% - ${(competenceCount - 1) * 1 / competenceCount}px)`;
 
-                // Get the latest non-empty check
-                const latestCheck = [checks[i], checks[i + competenceCount], checks[i + 2 * competenceCount]]
-                    .filter(check => check && check.trim() !== '')
-                    .pop();
+        checks.forEach((check, index) => {
+            const barDiv = document.createElement('div');
+            barDiv.style.width = barWidth;
+            barDiv.title = kcm_competences[index] || '';
 
-                if (latestCheck) {
-                    const number = latestCheck.replace(/\[\[Check\d+\]\]/, '').trim()[0];
-                    barDiv.classList.add('bar', `bar${number}`);
-                } else {
-                    barDiv.classList.add('bar', 'kcm_bar-empty');
-                }
+            const checkContent = check.replace(/\[\[Check\d+\]\]/, '').trim(); // Remove [[CheckXX]] and trim
 
-                barContainer.appendChild(barDiv);
+            if (checkContent) {
+                const number = checkContent[0]; // Get the first character (1, 2, or 3)
+                barDiv.classList.add('bar', `bar${number}`);
+            } else {
+                barDiv.classList.add('bar', 'kcm_bar-empty');
             }
+
+            barContainer.appendChild(barDiv);
         });
+
+        // If there are fewer checks than competences, add empty bars
+        for (let i = checks.length; i < competenceCount; i++) {
+            const barDiv = document.createElement('div');
+            barDiv.classList.add('bar', 'kcm_bar-empty');
+            barDiv.style.width = barWidth;
+            barDiv.title = kcm_competences[i] || '';
+            barContainer.appendChild(barDiv);
+        }
     });
+});
 </script>
 
 <script>
-    // replaces the "edit pencil" with custom edit button and svg pencil
-    document.addEventListener("DOMContentLoaded", function () {
-        // Select all <td> elements with the class "kcm_functions"
-        const functionCells = document.querySelectorAll("td.kcm_functions");
+// replaces the "edit pencil" with custom edit button and svg pencil
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select all <td> elements with the class "kcm_functions"
+            const functionCells = document.querySelectorAll("td.kcm_functions");
 
-        functionCells.forEach(cell => {
-            // Find and replace the edit icon within <span class="edit">
-            const editSpan = cell.querySelector("span.edit i");
-            if (editSpan) {
-                editSpan.outerHTML = `
+            functionCells.forEach(cell => {
+                // Find and replace the edit icon within <span class="edit">
+                const editSpan = cell.querySelector("span.edit i");
+                if (editSpan) {
+                    editSpan.outerHTML = `
                 <span class="sticker-button-edit" title="Bearbeiten">
                     <svg width="70px" height="70px" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--noto"
@@ -95,12 +104,12 @@
                         </g>
                     </svg>
                 </span>`;
-            }
+                }
 
-            // Find and replace the delete icon within <span class="delete">
-            const deleteSpan = cell.querySelector("span.delete i");
-            if (deleteSpan) {
-                deleteSpan.outerHTML = `
+                // Find and replace the delete icon within <span class="delete">
+                const deleteSpan = cell.querySelector("span.delete i");
+                if (deleteSpan) {
+                    deleteSpan.outerHTML = `
                 <span class="sticker-button-delete" title="Löschen">
                     <svg  width="60px" height="60px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
                         <defs></defs>
@@ -110,7 +119,7 @@
                         </g>
                     </svg>
                 </span>`;
-            }
+                }
+            });
         });
-    });
-</script>
+    </script>
